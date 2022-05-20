@@ -52,27 +52,32 @@ export default function CreateItem() {
   }
 
   async function listNFTForSale() {
-    const url = await uploadToIPFS();
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+    try {
+      const url = await uploadToIPFS();
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
 
-    /* create the NFT */
-    const price = ethers.utils.parseUnits(formInput.price, "ether");
-    let contract = new ethers.Contract(
-      marketplaceAddress,
-      NFTMarketplace.abi,
-      signer
-    );
-    let listingPrice = await contract.getListingPrice();
-    listingPrice = listingPrice.toString();
-    let transaction = await contract.createToken(url, price, {
-      value: listingPrice,
-    });
-    await transaction.wait();
+      /* create the NFT */
+      const price = ethers.utils.parseUnits(formInput.price, "ether");
+      let contract = new ethers.Contract(
+        marketplaceAddress,
+        NFTMarketplace.abi,
+        signer
+      );
+      let listingPrice = await contract.getListingPrice();
+      listingPrice = listingPrice.toString();
+      let transaction = await contract.createToken(url, price, {
+        value: listingPrice,
+      });
+      await transaction.wait();
 
-    router.push("/");
+      router.push("/");
+    } catch (error) {
+      console.log("Error: ", error);
+      alert(error.data.message);
+    }
   }
 
   return (
