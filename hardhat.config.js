@@ -10,6 +10,12 @@ module.exports = {
       url: "https://matic-mumbai.chainstacklabs.com",
       accounts: [process.env.privateKey],
     },
+    matic: {
+      // Infura
+      // url: `https://polygon-mumbai.infura.io/v3/${infuraId}`
+      url: "https://matic-mainnet.chainstacklabs.com",
+      accounts: [process.env.privateKey],
+    },
   },
   solidity: {
     version: "0.8.4",
