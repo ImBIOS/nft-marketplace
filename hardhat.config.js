@@ -7,7 +7,7 @@ module.exports = {
       chainId: 1337,
     },
     mumbai: {
-      url: "https://rpc-mumbai.maticvigil.com",
+      url: "https://matic-mumbai.chainstacklabs.com",
       accounts: [process.env.privateKey],
     },
   },
